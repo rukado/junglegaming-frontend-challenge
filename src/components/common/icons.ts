@@ -1,4 +1,9 @@
+import arrowRight from '@/assets/icons/arrow-right.svg'
 import cart from '@/assets/icons/cart.svg'
+import chevronDown from '@/assets/icons/chevron-down.svg'
+import chevronRight from '@/assets/icons/chevron-right.svg'
+import heroMobileCurves from '@/assets/icons/hero-mobile-curves.svg'
+import promoCurves from '@/assets/icons/promo-curves.svg'
 import filter from '@/assets/icons/filter.svg'
 import login from '@/assets/icons/login.svg'
 import scan from '@/assets/icons/scan.svg'
@@ -17,7 +22,12 @@ import tabbarBg from '@/assets/icons/tabbar-bg.svg'
 import tabbarFab from '@/assets/icons/tabbar-fab.svg'
 
 export const icons = {
+  arrowRight,
   cart,
+  chevronDown,
+  chevronRight,
+  heroMobileCurves,
+  promoCurves,
   filter,
   login,
   scan,

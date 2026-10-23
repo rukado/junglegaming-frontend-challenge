@@ -157,7 +157,7 @@ const figmaSeeds: Seed[] = [
       ['1/50', '1.89', 9],
     ],
     featured: true,
-    daysAgo: 12,
+    daysAgo: 8,
     popularity: 640,
     attributes: ['Blazer', 'Neon'],
     creator: 'Kenji Arai',
@@ -313,7 +313,7 @@ const categoryCycle: CategoryId[] = [
   'colecionaveis',
   'generativo',
   'jogos',
-  'arquitetura',
+  'assinaturas',
   'utilidade',
 ]
 const networkCycle: NetworkId[] = [
@@ -372,7 +372,7 @@ function generatedSeeds(count: number): Seed[] {
       category: categoryCycle[seeds.length % categoryCycle.length] as CategoryId,
       network: networkCycle[seeds.length % networkCycle.length] as NetworkId,
       editions,
-      daysAgo: random.int(1, 160),
+      daysAgo: random.int(50, 200),
       popularity: random.int(20, 900),
       attributes: [random.pick(attributePool), random.pick(attributePool)].filter(
         (value, i, all) => all.indexOf(value) === i,

@@ -1,9 +1,10 @@
-import { Link, useRouterState } from '@tanstack/react-router'
+import { Link, useNavigate, useRouterState } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 import { ComingSoon } from '@/components/common/coming-soon'
 import { icons } from '@/components/common/icons'
 import { Logo } from '@/components/common/logo'
 import { MaskIcon } from '@/components/common/mask-icon'
+import { focusCatalogSearch } from '@/features/catalog/focus-search'
 import { cn } from '@/lib/utils'
 import { CartIndicator } from './cart-indicator'
 import { sectionFromPath } from './nav-config'
@@ -19,6 +20,14 @@ const navLinkBase =
 export function SiteHeader({ cartCount, account }: SiteHeaderProps) {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const section = sectionFromPath(pathname)
+  const navigate = useNavigate()
+
+  function openSearch() {
+    if (pathname === '/' && focusCatalogSearch()) return
+    void navigate({ to: '/', hash: 'catalogo' }).then(() =>
+      requestAnimationFrame(() => focusCatalogSearch()),
+    )
+  }
 
   return (
     <header className="container-page pt-6">
@@ -65,14 +74,14 @@ export function SiteHeader({ cartCount, account }: SiteHeaderProps) {
           </ul>
         </nav>
         <div className="flex h-[35px] items-center gap-2 md:gap-4">
-          <Link
-            to="/"
-            hash="busca"
+          <button
+            type="button"
+            onClick={openSearch}
             aria-label="Buscar NFTs"
             className="inline-flex size-10 items-center justify-center rounded-md text-foreground hover:text-text-accent"
           >
             <MaskIcon src={icons.search} className="size-5" />
-          </Link>
+          </button>
           <CartIndicator count={cartCount} className="text-foreground hover:text-text-accent" />
           <div className="hidden md:block">{account}</div>
         </div>

@@ -17,7 +17,7 @@ export function MobileTabBar({ cartCount }: TabBarProps) {
   return (
     <nav
       aria-label="Navegação inferior"
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-[126px] md:hidden"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-[126px] overflow-hidden md:hidden"
     >
       <div aria-hidden="true" className="absolute inset-x-0 top-[24.6%] bottom-0">
         <img

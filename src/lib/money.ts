@@ -32,15 +32,3 @@ export function compareEth(a: EthString, b: EthString): -1 | 0 | 1 {
 export function isEthEqual(a: EthString, b: EthString): boolean {
   return new Big(a).eq(b)
 }
-
-export function formatEth(
-  value: EthString,
-  options: { minDecimals?: number; maxDecimals?: number } = {},
-): string {
-  const { minDecimals = 2, maxDecimals = 6 } = options
-  const fixed = new Big(value).round(maxDecimals, Big.roundHalfUp).toFixed(maxDecimals)
-  const [whole = '0', fraction = ''] = fixed.split('.')
-  let trimmed = fraction.replace(/0+$/, '')
-  if (trimmed.length < minDecimals) trimmed = trimmed.padEnd(minDecimals, '0')
-  return `${whole}${trimmed ? `.${trimmed}` : ''} ETH`
-}

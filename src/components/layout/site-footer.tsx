@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { categoryLabels, type CategoryId } from '@/api/contracts'
 import { ComingSoon } from '@/components/common/coming-soon'
 import { icons } from '@/components/common/icons'
 import { NewsletterForm } from './newsletter-form'
@@ -19,6 +20,14 @@ const features = [
     title: 'Alertas de lançamentos',
     text: 'Receba calendários de cunhagem, novidades de listas de acesso e análises do mercado.',
   },
+]
+
+const footerCategories: CategoryId[] = [
+  'arte-digital',
+  'fotografia',
+  'musica',
+  'arte-3d',
+  'utilidade',
 ]
 
 const socials = [
@@ -139,10 +148,10 @@ export function SiteFooter() {
           <nav aria-label="Coleções" className="flex flex-col gap-2 lg:flex-1">
             <h2 className="text-lead leading-4 font-bold text-foreground">Coleções</h2>
             <ul>
-              {['Arte digital', 'Fotografia', 'Música', 'Arte 3D', 'Utilidade'].map((item) => (
-                <li key={item}>
-                  <Link to="/" hash="catalogo" className={linkClass}>
-                    {item}
+              {footerCategories.map((id) => (
+                <li key={id}>
+                  <Link to="/" search={{ categories: [id] }} hash="catalogo" className={linkClass}>
+                    {categoryLabels[id]}
                   </Link>
                 </li>
               ))}

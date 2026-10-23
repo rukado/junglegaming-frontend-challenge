@@ -3,7 +3,7 @@ import { buildNftFixtures } from './fixtures/nfts'
 import type { MockDb } from './types'
 
 const storageKey = 'kurio.mock.db'
-const schemaVersion = 1
+const schemaVersion = 3
 
 let db: MockDb | null = null
 

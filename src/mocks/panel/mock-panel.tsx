@@ -90,10 +90,11 @@ export default function MockPanel() {
       <SheetTrigger asChild>
         <button
           type="button"
-          className="fixed bottom-32 left-3 z-50 inline-flex h-10 items-center gap-2 rounded-full border border-border-soft bg-surface-dark px-3 text-caption font-bold text-text-accent shadow-lg md:bottom-4"
+          aria-label="Cenários de simulação"
+          className="fixed bottom-32 left-3 z-50 inline-flex size-10 items-center justify-center gap-2 rounded-full border border-border-soft bg-surface-dark text-caption font-bold text-text-accent shadow-lg md:bottom-4 md:w-auto md:px-3"
         >
           <FlaskConical className="size-4" aria-hidden="true" />
-          Cenários
+          <span className="hidden md:inline">Cenários</span>
         </button>
       </SheetTrigger>
       <SheetContent side="left" className="w-full overflow-y-auto bg-surface-card sm:max-w-md">

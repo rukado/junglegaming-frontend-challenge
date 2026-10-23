@@ -9,7 +9,7 @@ export const categoryIds = [
   'colecionaveis',
   'generativo',
   'jogos',
-  'arquitetura',
+  'assinaturas',
   'utilidade',
 ] as const
 export const categoryId = z.enum(categoryIds)
@@ -21,9 +21,9 @@ export const categoryLabels: Record<CategoryId, string> = {
   musica: 'Música',
   'arte-3d': 'Arte 3D',
   colecionaveis: 'Colecionáveis',
-  generativo: 'Generativo',
+  generativo: 'Generativa',
   jogos: 'Jogos',
-  arquitetura: 'Arquitetura',
+  assinaturas: 'Assinaturas',
   utilidade: 'Utilidade',
 }
 

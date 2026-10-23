@@ -66,7 +66,7 @@
 
   --container-page: 1200px;
 
-  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-shimmer: skeleton-shimmer 1.6s linear infinite;
 }
 
 :root {
@@ -102,7 +102,7 @@
   --radius: 6px;
 }
 
-@keyframes shimmer {
+@keyframes skeleton-shimmer {
   from {
     background-position: 200% 0;
   }
@@ -157,7 +157,7 @@
   }
 }
 
-@utility shimmer {
+@utility skeleton-shimmer {
   background-color: var(--surface-dark);
   background-image: linear-gradient(
     90deg,
