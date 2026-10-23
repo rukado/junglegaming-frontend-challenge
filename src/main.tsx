@@ -1,8 +1,11 @@
+import './index.css'
+import { RouterProvider } from '@tanstack/react-router'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { router } from '@/app/router'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <main>GreenMint</main>
+    <RouterProvider router={router} />
   </StrictMode>,
 )

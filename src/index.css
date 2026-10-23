@@ -1,0 +1,197 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/roboto-mono/wght.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Roboto Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-mono: 'Roboto Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-heading: var(--font-sans);
+
+  --color-ink: var(--ink);
+  --color-surface-card: var(--surface-card);
+  --color-surface-dark: var(--surface-dark);
+  --color-border-soft: var(--border-soft);
+  --color-text-accent: var(--text-accent);
+  --color-text-secondary: var(--text-secondary);
+  --color-sand: var(--sand);
+  --color-elevated: var(--elevated);
+  --color-success: var(--success);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-4xl: 40px;
+
+  --text-tiny: 9px;
+  --text-tiny--line-height: 1;
+  --text-2xs: 10px;
+  --text-2xs--line-height: 1;
+  --text-caption: 12px;
+  --text-caption--line-height: 14px;
+  --text-body: 14px;
+  --text-body--line-height: 22px;
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 20px;
+  --text-lead: 18px;
+  --text-lead--line-height: 24px;
+  --text-heading: 24px;
+  --text-heading--line-height: 30px;
+  --text-display: 43px;
+  --text-display--line-height: 70px;
+
+  --container-page: 1200px;
+
+  --animate-shimmer: shimmer 1.6s linear infinite;
+}
+
+:root {
+  color-scheme: dark;
+  --ink: #140d0a;
+  --surface-card: #241612;
+  --surface-dark: #38220f;
+  --border-soft: #55321f;
+  --text-accent: #e89b55;
+  --text-secondary: #cfb28c;
+  --sand: #b39463;
+  --elevated: #fbfbfb;
+  --success: #7fc99a;
+
+  --background: var(--ink);
+  --foreground: #f5f1eb;
+  --card: var(--surface-card);
+  --card-foreground: #f5f1eb;
+  --popover: var(--surface-card);
+  --popover-foreground: #f5f1eb;
+  --primary: #d28a4c;
+  --primary-foreground: var(--ink);
+  --secondary: var(--surface-dark);
+  --secondary-foreground: #f7f3ec;
+  --muted: var(--surface-dark);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--surface-dark);
+  --accent-foreground: var(--text-accent);
+  --destructive: #ff8a7a;
+  --border: #3f2319;
+  --input: var(--border-soft);
+  --ring: var(--text-accent);
+  --radius: 6px;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply bg-background font-sans antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply min-h-dvh bg-background text-foreground;
+    overflow-x: clip;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: calc(var(--container-page) + 2rem);
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 48rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 80rem) {
+    max-width: var(--container-page);
+    padding-inline: 0;
+  }
+}
+
+@utility shimmer {
+  background-color: var(--surface-dark);
+  background-image: linear-gradient(
+    90deg,
+    var(--surface-dark) 0%,
+    color-mix(in oklab, var(--border-soft) 80%, var(--text-secondary)) 50%,
+    var(--surface-dark) 100%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-image: none;
+  }
+}
+
+@utility icon-mask {
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+@utility sr-only-focusable {
+  &:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}

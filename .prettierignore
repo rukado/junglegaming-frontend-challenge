@@ -5,3 +5,4 @@ public/mockServiceWorker.js
 playwright-report
 test-results
 docs/CHALLENGE.md
+src/components/ui

@@ -11,8 +11,16 @@
     "react/exhaustive-deps": "warn",
     "react/only-export-components": ["warn", { "allowConstantExport": true }],
     "typescript/no-explicit-any": "error",
-    "import/no-cycle": "error"
+    "import/no-cycle": "error",
+    "import/no-unassigned-import": ["warn", { "allow": ["**/*.css"] }],
+    "no-underscore-dangle": "off"
   },
+  "overrides": [
+    {
+      "files": ["src/routes/**", "src/components/ui/**"],
+      "rules": { "react/only-export-components": "off" }
+    }
+  ],
   "ignorePatterns": [
     "dist",
     "src/routeTree.gen.ts",
