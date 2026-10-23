@@ -42,11 +42,6 @@ export const loginRequest = z.object({
 export type LoginRequest = z.infer<typeof loginRequest>
 
 export const registerRequest = z.object({
-  displayName: z
-    .string()
-    .trim()
-    .min(2, 'Informe seu nome de exibição')
-    .max(40, 'Use no máximo 40 caracteres'),
   username: usernameRule,
   email: z.email('Informe um e-mail válido'),
   password: passwordRule,

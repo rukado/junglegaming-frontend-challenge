@@ -28,7 +28,7 @@ export const authHandlers = [
     withNetwork('auth', async ({ request }) => {
       const parsed = registerRequest.safeParse(await readJson(request))
       if (!parsed.success) return validationError(parsed.error)
-      const { email, username, displayName, password } = parsed.data
+      const { email, username, password } = parsed.data
       const db = getDb()
       const fieldErrors: Record<string, string> = {}
       if (db.users.some((user) => user.email.toLowerCase() === email.toLowerCase())) {
@@ -47,7 +47,7 @@ export const authHandlers = [
         state.users.push({
           id,
           email,
-          displayName,
+          displayName: username,
           username,
           ens: null,
           walletNickname: null,

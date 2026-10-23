@@ -90,15 +90,3 @@ export function SiteHeader({ cartCount, account }: SiteHeaderProps) {
     </header>
   )
 }
-
-export function SignInButton() {
-  return (
-    <Link
-      to="/login"
-      className="inline-flex h-[35px] w-[100px] items-center justify-center gap-1 rounded-md bg-primary text-body-lg font-medium leading-none text-ink transition-colors hover:bg-text-accent"
-    >
-      <MaskIcon src={icons.login} className="size-5 text-ink" />
-      Entrar
-    </Link>
-  )
-}

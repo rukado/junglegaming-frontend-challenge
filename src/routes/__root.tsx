@@ -2,23 +2,28 @@ import { createRootRouteWithContext, HeadContent, Outlet } from '@tanstack/react
 import type { RouterContext } from '@/app/router-context'
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar'
 import { NotFound } from '@/components/layout/not-found'
-import { SignInButton, SiteHeader } from '@/components/layout/site-header'
+import { RouteError } from '@/components/layout/route-error'
+import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SkipLink } from '@/components/layout/skip-link'
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { AccountMenu } from '@/features/auth/components/account-menu'
+import { SessionWatcher } from '@/features/auth/components/session-watcher'
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootLayout,
   notFoundComponent: NotFound,
+  errorComponent: RouteError,
 })
 
 function RootLayout() {
   return (
     <TooltipProvider>
       <HeadContent />
+      <SessionWatcher />
       <SkipLink />
-      <SiteHeader cartCount={0} account={<SignInButton />} />
+      <SiteHeader cartCount={0} account={<AccountMenu />} />
       <main id="conteudo" tabIndex={-1} className="outline-none">
         <Outlet />
       </main>
