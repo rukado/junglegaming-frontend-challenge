@@ -49,8 +49,10 @@ export const edition = z.object({
 export type Edition = z.infer<typeof edition>
 
 export const nftImage = z.object({
-  src: z.string(),
   alt: z.string(),
+  sm: z.string(),
+  md: z.string(),
+  lg: z.string(),
 })
 export type NftImage = z.infer<typeof nftImage>
 

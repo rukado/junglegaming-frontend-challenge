@@ -24,4 +24,5 @@ export const cartApi = {
   removeCoupon: () => request(cart, { method: 'DELETE', url: '/cart/coupon' }),
   merge: (body: MergeCartRequest) =>
     request(cart, { method: 'POST', url: '/cart/merge', data: body }),
+  acceptChanges: () => request(cart, { method: 'POST', url: '/cart/accept-changes' }),
 }
