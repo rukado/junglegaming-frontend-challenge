@@ -1,6 +1,7 @@
 import type { NftListResponse } from '@/api/contracts'
 import { ActionButton } from '@/components/common/action-button'
 import { StatusMessage } from '@/components/common/status-message'
+import { FavoriteButton } from '@/features/favorites/components/favorite-button'
 import { cn } from '@/lib/utils'
 import { catalogPageSize } from '../search'
 import { NftCard, NftCardSkeleton } from './nft-card'
@@ -85,7 +86,11 @@ export function CatalogResults({
       >
         {data.items.map((nft, index) => (
           <li key={nft.id}>
-            <NftCard nft={nft} priority={index < 3} />
+            <NftCard
+              nft={nft}
+              priority={index < 3}
+              action={<FavoriteButton nftId={nft.id} name={nft.name} />}
+            />
           </li>
         ))}
       </ul>
