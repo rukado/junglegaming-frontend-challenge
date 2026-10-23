@@ -4,6 +4,7 @@ import { env } from '@/env'
 import { getGuestCartId } from '@/features/cart/guest-cart'
 import { sessionStore } from '@/features/auth/session-store'
 import { ApiError, toApiError } from './errors'
+import { transportReady } from './transport'
 
 export const http = create({
   baseURL: env.VITE_API_BASE_URL,
@@ -12,7 +13,8 @@ export const http = create({
   paramsSerializer: { indexes: null },
 })
 
-http.interceptors.request.use((config) => {
+http.interceptors.request.use(async (config) => {
+  await transportReady()
   const token = sessionStore.getToken()
   if (token) config.headers.set('Authorization', `Bearer ${token}`)
   config.headers.set('X-Cart-Id', getGuestCartId())

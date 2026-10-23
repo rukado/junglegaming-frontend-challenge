@@ -32,3 +32,4 @@ dist-ssr
 /playwright/.cache
 /.lighthouseci
 /.vercel
+/lighthouse/reports/runs

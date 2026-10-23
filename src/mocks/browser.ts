@@ -5,25 +5,13 @@ import { initDb, resetDb } from './db/store'
 import { resumeSettlements } from './domain/orders'
 import { handlers } from './handlers'
 import { setScenario } from './scenarios'
+import type { MockOverrides } from './url-overrides'
 
 export const worker = setupWorker(...handlers)
 
-function applyUrlOverrides() {
-  const url = new URL(window.location.href)
-  const scenario = url.searchParams.get('scenario')
-  const reset = url.searchParams.get('mockReset')
-  if (scenario) setScenario(scenario)
-  if (scenario || reset) {
-    url.searchParams.delete('scenario')
-    url.searchParams.delete('mockReset')
-    window.history.replaceState(window.history.state, '', url)
-  }
-  return reset === '1'
-}
-
-export async function startMocks() {
-  const shouldReset = applyUrlOverrides()
-  if (shouldReset) await resetDb()
+export async function startMocks(overrides: MockOverrides) {
+  if (overrides.scenario) setScenario(overrides.scenario)
+  if (overrides.reset) await resetDb()
   else await initDb()
   resumeSettlements()
   await worker.start({

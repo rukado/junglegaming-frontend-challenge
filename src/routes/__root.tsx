@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { createRootRouteWithContext, HeadContent, Outlet, useMatches } from '@tanstack/react-router'
+import { transportReady } from '@/api/transport'
 import type { RouterContext } from '@/app/router-context'
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar'
 import { NotFound } from '@/components/layout/not-found'
@@ -14,7 +15,7 @@ import { SessionWatcher } from '@/features/auth/components/session-watcher'
 import { cartItemCount, useCart } from '@/features/cart/queries'
 import { cn } from '@/lib/utils'
 
-const RealtimeBridge = lazy(() => import('@/realtime/realtime-bridge'))
+const RealtimeBridge = lazy(() => transportReady().then(() => import('@/realtime/realtime-bridge')))
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootLayout,
@@ -40,7 +41,7 @@ function RootLayout() {
       <div className={cn(minimalMobile && 'hidden md:block')}>
         <SiteHeader cartCount={cartCount} account={<AccountMenu />} />
       </div>
-      <main id="conteudo" tabIndex={-1} className="outline-none">
+      <main id="conteudo" tabIndex={-1} className="min-h-dvh outline-none">
         <Outlet />
       </main>
       <div className={cn(minimalMobile && 'hidden md:block')}>
