@@ -31,3 +31,8 @@ const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
 export function formatDate(iso: string) {
   return dateFormatter.format(new Date(iso)).replace(/\./g, '').replace(/ de /g, ' ')
 }
+
+export function shortenHash(value: string, head = 6, tail = 4) {
+  if (value.length <= head + tail + 1) return value
+  return `${value.slice(0, head)}…${value.slice(-tail)}`
+}
