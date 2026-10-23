@@ -1,20 +1,11 @@
 import { z } from 'zod'
 import { collectorDetails, type User, type Wallet } from '@/api/contracts'
+import { secondaryAddressRule } from '@/features/wallets/schema'
 
 export const checkoutFormSchema = collectorDetails.extend({
   walletId: z.string(),
   useOtherWallet: z.boolean(),
-  secondaryAddress: z
-    .string()
-    .trim()
-    .max(64, 'Use no máximo 64 caracteres')
-    .refine(
-      (value) =>
-        value === '' ||
-        /^0x[a-fA-F0-9]{40}$/.test(value) ||
-        /^[a-z0-9-]{3,32}\.(eth|nft|crypto)$/.test(value),
-      'Informe um endereço 0x ou um nome ENS (ex.: nome.eth)',
-    ),
+  secondaryAddress: secondaryAddressRule,
 })
 export type CheckoutFormValues = z.infer<typeof checkoutFormSchema>
 

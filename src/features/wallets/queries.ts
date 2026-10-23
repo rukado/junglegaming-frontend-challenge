@@ -1,5 +1,5 @@
 import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import type { CreateWalletRequest } from '@/api/contracts'
+import type { CreateWalletRequest, UpdateWalletRequest } from '@/api/contracts'
 import { walletsApi } from '@/api/endpoints/wallets'
 import { queryKeys } from '@/app/query-keys'
 import { useCurrentUserId } from '@/features/auth/session'
@@ -21,6 +21,19 @@ export function useCreateWallet() {
   const userId = useCurrentUserId()
   return useMutation({
     mutationFn: (body: CreateWalletRequest) => walletsApi.create(body),
+    onSettled: () =>
+      userId
+        ? queryClient.invalidateQueries({ queryKey: queryKeys.user.wallets(userId) })
+        : undefined,
+  })
+}
+
+export function useUpdateWallet() {
+  const queryClient = useQueryClient()
+  const userId = useCurrentUserId()
+  return useMutation({
+    mutationFn: ({ walletId, body }: { walletId: string; body: UpdateWalletRequest }) =>
+      walletsApi.update(walletId, body),
     onSettled: () =>
       userId
         ? queryClient.invalidateQueries({ queryKey: queryKeys.user.wallets(userId) })
