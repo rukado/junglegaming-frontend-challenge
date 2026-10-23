@@ -1,10 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { PageShell } from '@/components/layout/page-shell'
+import { CartView } from '@/features/cart/components/cart-view'
 
 export const Route = createFileRoute('/cart')({
-  component: CartPage,
+  staticData: { mobileChrome: 'minimal' },
+  head: () => ({ meta: [{ title: 'Carrinho · Kurio' }] }),
+  component: CartView,
 })
-
-function CartPage() {
-  return <PageShell title="Carrinho de NFTs" />
-}

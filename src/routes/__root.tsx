@@ -37,7 +37,9 @@ function RootLayout() {
       <main id="conteudo" tabIndex={-1} className="outline-none">
         <Outlet />
       </main>
-      <SiteFooter />
+      <div className={cn(minimalMobile && 'hidden md:block')}>
+        <SiteFooter />
+      </div>
       {!minimalMobile && <MobileTabBar cartCount={cartCount} />}
       <Toaster />
     </TooltipProvider>

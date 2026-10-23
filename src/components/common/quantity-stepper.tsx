@@ -8,8 +8,16 @@ type QuantityStepperProps = {
   onChange: (value: number) => void
   label: string
   disabled?: boolean
-  size?: 'sm' | 'md'
+  size?: 'xs' | 'sm' | 'md' | 'round'
+  tone?: 'primary' | 'muted'
   className?: string
+}
+
+const sizeClasses = {
+  xs: 'h-[30px] w-5',
+  sm: 'h-[26px] w-5',
+  md: 'h-[33px] w-[26px]',
+  round: 'size-6',
 }
 
 export function QuantityStepper({
@@ -20,15 +28,19 @@ export function QuantityStepper({
   label,
   disabled = false,
   size = 'md',
+  tone = 'primary',
   className,
 }: QuantityStepperProps) {
   const buttonClass = cn(
-    'flex items-center justify-center rounded-full bg-primary text-ink transition-colors hover:bg-text-accent disabled:cursor-not-allowed disabled:opacity-40',
-    size === 'md' ? 'h-[33px] w-[26px]' : 'h-[26px] w-5',
+    'flex items-center justify-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-40',
+    tone === 'primary'
+      ? 'bg-primary text-ink hover:bg-text-accent'
+      : 'bg-[#2f1d15] text-foreground hover:bg-surface-dark',
+    sizeClasses[size],
   )
   const iconClass = size === 'md' ? 'size-4' : 'size-3.5'
   return (
-    <fieldset className={cn('flex items-center', size === 'md' ? 'gap-3' : 'gap-2.5', className)}>
+    <fieldset className={cn('flex items-center', size === 'sm' ? 'gap-2.5' : 'gap-3', className)}>
       <legend className="sr-only">{label}</legend>
       <button
         type="button"
@@ -43,7 +55,7 @@ export function QuantityStepper({
         aria-live="polite"
         className={cn(
           'min-w-[2ch] text-center text-foreground',
-          size === 'md' ? 'text-heading' : 'text-lead',
+          size === 'md' ? 'text-heading' : size === 'sm' ? 'text-lead' : 'text-[17px]',
         )}
       >
         {value}
