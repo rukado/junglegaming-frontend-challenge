@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { useState } from 'react'
+import type { Cart } from '@/api/contracts'
 import { errorMessage } from '@/api/errors'
 import { StatusMessage } from '@/components/common/status-message'
 import { MobileScreenHeader } from '@/components/layout/mobile-screen-header'
@@ -46,6 +48,10 @@ function CheckoutPage() {
   const session = useSession()
   const { viewer, query: cartQuery } = useCart()
   const wallets = useWallets()
+  const [lastCart, setLastCart] = useState<Cart | null>(null)
+  const liveCart = cartQuery.data
+  if (liveCart && liveCart.items.length > 0 && liveCart !== lastCart) setLastCart(liveCart)
+  const cart = liveCart && liveCart.items.length === 0 && lastCart ? lastCart : liveCart
 
   const failed = cartQuery.isError ? cartQuery.error : wallets.isError ? wallets.error : null
   if (failed) {
@@ -72,11 +78,11 @@ function CheckoutPage() {
     )
   }
 
-  if (session.status !== 'authenticated' || !viewer || !cartQuery.data || !wallets.data) {
+  if (session.status !== 'authenticated' || !viewer || !cart || !wallets.data) {
     return <CheckoutSkeleton />
   }
 
-  if (cartQuery.data.items.length === 0) {
+  if (cart.items.length === 0) {
     return (
       <div className="container-page py-10">
         <MobileScreenHeader title="Pagamento com carteira" className="mb-6" />
@@ -99,11 +105,6 @@ function CheckoutPage() {
   }
 
   return (
-    <CheckoutView
-      user={session.user}
-      viewer={viewer}
-      cart={cartQuery.data}
-      wallets={wallets.data.items}
-    />
+    <CheckoutView user={session.user} viewer={viewer} cart={cart} wallets={wallets.data.items} />
   )
 }

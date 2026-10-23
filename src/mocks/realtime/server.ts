@@ -67,7 +67,7 @@ function parseConnectAuth(data: unknown): Record<string, unknown> | null {
 
 export const realtimeHandler = realtimeLink.addEventListener('connection', (connection) => {
   if (forcedOffline || getScenario().socketOffline) {
-    connection.client.close(1011, 'unavailable')
+    setTimeout(() => connection.client.close(1011, 'unavailable'), 0)
     return
   }
   connectionSeq += 1
