@@ -26,7 +26,6 @@ export async function startMocks() {
   if (shouldReset) await resetDb()
   else await initDb()
   resumeSettlements()
-  window.__kurioMocks = mockControl
   await worker.start({
     quiet: import.meta.env.PROD,
     serviceWorker: { url: '/mockServiceWorker.js' },
@@ -34,4 +33,5 @@ export async function startMocks() {
       if (new URL(request.url).pathname.startsWith(apiBase)) print.warning()
     },
   })
+  window.__kurioMocks = mockControl
 }

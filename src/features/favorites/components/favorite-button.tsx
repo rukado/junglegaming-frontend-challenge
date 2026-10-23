@@ -13,7 +13,7 @@ export function FavoriteButton({ nftId, name, variant = 'icon', className }: Fav
   const { ids } = useFavorites()
   const { toggle } = useToggleFavorite()
   const active = ids.has(nftId)
-  const label = active ? `Remover ${name} dos favoritos` : `Favoritar ${name}`
+  const label = `Favoritar ${name}`
 
   if (variant === 'labeled') {
     return (
@@ -29,7 +29,7 @@ export function FavoriteButton({ nftId, name, variant = 'icon', className }: Fav
         )}
       >
         <Heart aria-hidden="true" className={cn('size-5', active && 'fill-current')} />
-        {active ? 'Favoritado' : 'Favoritar'}
+        Favoritar
       </button>
     )
   }

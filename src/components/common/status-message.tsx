@@ -24,7 +24,7 @@ export function StatusMessage({ tone, title, description, action, className }: S
         aria-hidden="true"
         className={cn('size-8', tone === 'error' ? 'text-destructive' : 'text-text-accent')}
       />
-      <p className="text-lead font-bold text-foreground">{title}</p>
+      <h2 className="text-lead font-bold text-foreground">{title}</h2>
       {description && <p className="max-w-md text-body text-text-secondary">{description}</p>}
       {action && <div className="mt-2 flex flex-wrap justify-center gap-3">{action}</div>}
     </div>
