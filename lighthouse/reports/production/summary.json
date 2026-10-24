@@ -1,0 +1,270 @@
+[
+  {
+    "page": "inicio",
+    "profile": "mobile",
+    "medianScores": {
+      "performance": 91,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "medianMetrics": {
+      "largest-contentful-paint": 3145.217,
+      "cumulative-layout-shift": 0,
+      "total-blocking-time": 171,
+      "first-contentful-paint": 1371.967,
+      "speed-index": 1918.0800994659257
+    },
+    "runs": [
+      {
+        "run": 1,
+        "scores": {
+          "performance": 90,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 3145.217,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 183,
+          "first-contentful-paint": 1520.217,
+          "speed-index": 1953.2118600980161
+        }
+      },
+      {
+        "run": 2,
+        "scores": {
+          "performance": 92,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 3044.467,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 139,
+          "first-contentful-paint": 1371.967,
+          "speed-index": 1910.7392689542407
+        }
+      },
+      {
+        "run": 3,
+        "scores": {
+          "performance": 91,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 3158.6055,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 171,
+          "first-contentful-paint": 1083.6055000000001,
+          "speed-index": 1918.0800994659257
+        }
+      }
+    ]
+  },
+  {
+    "page": "inicio",
+    "profile": "desktop",
+    "medianScores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "medianMetrics": {
+      "largest-contentful-paint": 644.644,
+      "cumulative-layout-shift": 0.004548813589002714,
+      "total-blocking-time": 5.5,
+      "first-contentful-paint": 389.75,
+      "speed-index": 575.3876018266255
+    },
+    "runs": [
+      {
+        "run": 1,
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 642.75,
+          "cumulative-layout-shift": 0.004548813589002714,
+          "total-blocking-time": 2.5,
+          "first-contentful-paint": 389.75,
+          "speed-index": 575.3876018266255
+        }
+      },
+      {
+        "run": 2,
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 666.4735000000001,
+          "cumulative-layout-shift": 0.004548813589002714,
+          "total-blocking-time": 15.5,
+          "first-contentful-paint": 474.97350000000006,
+          "speed-index": 619.1837020361304
+        }
+      },
+      {
+        "run": 3,
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 644.644,
+          "cumulative-layout-shift": 0.004548813589002714,
+          "total-blocking-time": 5.5,
+          "first-contentful-paint": 262.644,
+          "speed-index": 546.7801873554777
+        }
+      }
+    ]
+  },
+  {
+    "page": "detalhe",
+    "profile": "mobile",
+    "medianScores": {
+      "performance": 92,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "medianMetrics": {
+      "largest-contentful-paint": 3003.0985,
+      "cumulative-layout-shift": 0,
+      "total-blocking-time": 148.5,
+      "first-contentful-paint": 1078.0985,
+      "speed-index": 2170.819622214534
+    },
+    "runs": [
+      {
+        "run": 1,
+        "scores": {
+          "performance": 92,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 2979.0845,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 182,
+          "first-contentful-paint": 1074.0845,
+          "speed-index": 2088.178398964543
+        }
+      },
+      {
+        "run": 2,
+        "scores": {
+          "performance": 94,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 3003.0985,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 95,
+          "first-contentful-paint": 1078.0985,
+          "speed-index": 2175.0380439997402
+        }
+      },
+      {
+        "run": 3,
+        "scores": {
+          "performance": 92,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 3017.215,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 148.5,
+          "first-contentful-paint": 1524.2150000000001,
+          "speed-index": 2170.819622214534
+        }
+      }
+    ]
+  },
+  {
+    "page": "detalhe",
+    "profile": "desktop",
+    "medianScores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "medianMetrics": {
+      "largest-contentful-paint": 613.4315,
+      "cumulative-layout-shift": 0,
+      "total-blocking-time": 0,
+      "first-contentful-paint": 341.0605,
+      "speed-index": 533.5400020582924
+    },
+    "runs": [
+      {
+        "run": 1,
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 613.4315,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 0,
+          "first-contentful-paint": 338.4315,
+          "speed-index": 546.1175293477894
+        }
+      },
+      {
+        "run": 2,
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 613.0605,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 0,
+          "first-contentful-paint": 341.0605,
+          "speed-index": 512.3208121393483
+        }
+      },
+      {
+        "run": 3,
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 616.585,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 0,
+          "first-contentful-paint": 380.58500000000004,
+          "speed-index": 533.5400020582924
+        }
+      }
+    ]
+  }
+]
