@@ -12,7 +12,31 @@
     <title>Kurio · Marketplace de NFTs</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div aria-busy="true">
+        <header class="container-page pt-6">
+          <div class="flex h-[35px] items-center justify-between gap-4">
+            <a
+              href="/"
+              aria-label="Kurio, página inicial"
+              class="text-body font-bold leading-none tracking-[1.4px] text-foreground"
+              >KURIO</a
+            >
+            <div aria-hidden="true" class="flex items-center gap-2 md:gap-4">
+              <div class="skeleton-shimmer size-10 rounded-md"></div>
+              <div class="skeleton-shimmer size-10 rounded-md"></div>
+            </div>
+          </div>
+        </header>
+        <main class="container-page min-h-dvh pt-4 md:pt-10">
+          <p class="sr-only" role="status">Carregando a Kurio…</p>
+          <div aria-hidden="true" class="flex flex-col gap-4">
+            <div class="skeleton-shimmer h-[45px] rounded-[14px] md:hidden"></div>
+            <div class="skeleton-shimmer h-[188px] rounded-[30px] md:h-[420px]"></div>
+          </div>
+        </main>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

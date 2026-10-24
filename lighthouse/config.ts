@@ -2,6 +2,8 @@ export const runsPerTarget = 3
 
 export const previewPort = 4174
 
+export const productionUrl = 'https://junglegaming-frontend-challenge-kohl.vercel.app'
+
 export const pages = [
   { id: 'inicio', label: 'Início', path: '/' },
   {
@@ -30,4 +32,4 @@ export const metrics = [
   { id: 'speed-index', label: 'Speed Index', unit: 'ms' },
 ] as const
 
-export const chromeFlags = ['--no-sandbox', '--disable-gpu']
+export const chromeFlags = ['--no-sandbox', '--disable-gpu', '--ignore-certificate-errors']

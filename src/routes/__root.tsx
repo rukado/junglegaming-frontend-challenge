@@ -9,7 +9,6 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SkipLink } from '@/components/layout/skip-link'
 import { Toaster } from '@/components/ui/sonner'
-import { TooltipProvider } from '@/components/ui/tooltip'
 import { AccountMenu } from '@/features/auth/components/account-menu'
 import { SessionWatcher } from '@/features/auth/components/session-watcher'
 import { cartItemCount, useCart } from '@/features/cart/queries'
@@ -31,7 +30,7 @@ function RootLayout() {
   })
 
   return (
-    <TooltipProvider>
+    <>
       <HeadContent />
       <SessionWatcher />
       <Suspense fallback={null}>
@@ -49,6 +48,6 @@ function RootLayout() {
       </div>
       {!minimalMobile && <MobileTabBar cartCount={cartCount} />}
       <Toaster />
-    </TooltipProvider>
+    </>
   )
 }

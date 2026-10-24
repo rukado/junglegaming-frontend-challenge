@@ -1,6 +1,6 @@
 import { spawn, type ChildProcess } from 'node:child_process'
 import { copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
-import { createServer } from 'node:net'
+import { connect, createServer } from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -12,6 +12,7 @@ import {
   metrics,
   pages,
   previewPort,
+  productionUrl,
   profiles,
   runsPerTarget,
   targets,
@@ -38,9 +39,11 @@ type Summary = {
 }
 
 const root = path.dirname(fileURLToPath(import.meta.url))
-const reportsDir = path.join(root, 'reports')
+const target = process.argv[2] === 'production' ? 'production' : 'local'
+const reportsDir = path.join(root, 'reports', target)
 const runsDir = path.join(reportsDir, 'runs')
-const baseUrl = `http://localhost:${previewPort}`
+const resultsFile = path.join(root, `RESULTS.${target}.md`)
+const baseUrl = target === 'production' ? productionUrl : `https://localhost:${previewPort}`
 
 function freePort(): Promise<number> {
   return new Promise((resolve, reject) => {
@@ -60,24 +63,32 @@ function median(values: number[]) {
   return sorted[Math.floor(sorted.length / 2)] ?? 0
 }
 
-async function waitForServer(url: string, timeoutMs = 30_000) {
-  const started = Date.now()
-  while (Date.now() - started < timeoutMs) {
-    try {
-      const response = await fetch(url)
-      if (response.ok) return
-    } catch {
-      await new Promise((resolve) => setTimeout(resolve, 300))
-    }
-  }
-  throw new Error(`Servidor não respondeu em ${url}`)
+function portOpen(port: number) {
+  return new Promise<boolean>((resolve) => {
+    const socket = connect(port, 'localhost')
+    socket.once('connect', () => {
+      socket.destroy()
+      resolve(true)
+    })
+    socket.once('error', () => resolve(false))
+  })
 }
 
-function startPreview(): ChildProcess {
+async function waitForPreview(timeoutMs = 30_000) {
+  const started = Date.now()
+  while (Date.now() - started < timeoutMs) {
+    if (await portOpen(previewPort)) return
+    await new Promise((resolve) => setTimeout(resolve, 300))
+  }
+  throw new Error(`Servidor não respondeu na porta ${previewPort}`)
+}
+
+function startPreview(): ChildProcess | undefined {
+  if (target === 'production') return undefined
   return spawn('pnpm', ['exec', 'vite', 'preview', '--port', String(previewPort), '--strictPort'], {
     cwd: path.resolve(root, '..'),
     stdio: 'ignore',
-    env: { ...process.env, VITE_ENABLE_MOCKS: 'true' },
+    env: { ...process.env, VITE_ENABLE_MOCKS: 'true', PREVIEW_HTTPS: 'true' },
   })
 }
 
@@ -170,7 +181,7 @@ async function main() {
     settings: {} as Record<Profile, unknown>,
   }
   try {
-    await waitForServer(baseUrl)
+    if (preview) await waitForPreview()
     for (const page of pages) {
       for (const profile of profiles) {
         const runs: Array<RunResult & { warnings: string[] }> = []
@@ -212,7 +223,7 @@ async function main() {
       }
     }
   } finally {
-    preview.kill()
+    preview?.kill()
   }
 
   const settingsFor = (profile: Profile) =>
@@ -224,8 +235,9 @@ async function main() {
     }
 
   const lines: string[] = []
-  lines.push('# Resultados Lighthouse', '')
-  lines.push(`Gerado em ${new Date().toISOString()} por \`pnpm lighthouse\`.`, '')
+  const command = target === 'production' ? 'pnpm lighthouse:production' : 'pnpm lighthouse'
+  lines.push(`# Resultados Lighthouse · ${target === 'production' ? 'produção' : 'local'}`, '')
+  lines.push(`Gerado em ${new Date().toISOString()} por \`${command}\` contra ${baseUrl}.`, '')
   lines.push('## Medianas por página e perfil', '')
   lines.push(
     `| Página | Perfil | Performance | Accessibility | Best Practices | SEO | ${metrics.map((metric) => metric.label).join(' | ')} |`,
@@ -291,7 +303,9 @@ async function main() {
     `- Node ${process.version} · ${os.type()} ${os.release()} (${os.arch()}) · ${os.cpus()[0]?.model ?? 'CPU'} × ${os.cpus().length} · ${Math.round(os.totalmem() / 1024 ** 3)} GB RAM`,
   )
   lines.push(
-    `- Build de produção (\`vite build\`) servido por \`vite preview\` na porta ${previewPort}, com \`VITE_ENABLE_MOCKS=true\` e cenário padrão dos mocks (latência curta determinística).`,
+    target === 'production'
+      ? `- Deploy de produção na Vercel (${productionUrl}), servido por HTTP/2 com compressão, com \`VITE_ENABLE_MOCKS=true\` e cenário padrão dos mocks (latência curta determinística).`
+      : `- Build de produção (\`vite build\`) servido por \`vite preview\` em HTTPS/HTTP2 na porta ${previewPort} (certificado autoassinado do \`@vitejs/plugin-basic-ssl\`, sem compressão), com \`VITE_ENABLE_MOCKS=true\` e cenário padrão dos mocks (latência curta determinística).`,
   )
   lines.push(
     '- Cada execução abre um perfil limpo do Chromium: sem cache, sem service worker registrado e com o banco do mock recriado a partir das fixtures.',
@@ -307,7 +321,7 @@ async function main() {
   )
   lines.push('')
 
-  await writeFile(path.join(root, 'RESULTS.md'), `${lines.join('\n')}`)
+  await writeFile(resultsFile, `${lines.join('\n')}`)
   await writeFile(
     path.join(reportsDir, 'summary.json'),
     JSON.stringify(
@@ -322,7 +336,7 @@ async function main() {
       2,
     ),
   )
-  process.stdout.write('Resultados em lighthouse/RESULTS.md\n')
+  process.stdout.write(`Resultados em ${path.relative(path.resolve(root, '..'), resultsFile)}\n`)
 }
 
 main().catch((error: unknown) => {

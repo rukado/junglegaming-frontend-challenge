@@ -14,9 +14,9 @@ Kurio é um marketplace de NFTs com:
 
 A API REST e o servidor Socket.IO são simulados por MSW na camada de rede.
 
-- **Aplicação publicada:** _adicionar a URL da Vercel após o deploy_
+- **Aplicação publicada:** https://junglegaming-frontend-challenge-kohl.vercel.app
 - **Arquitetura, contratos e decisões:** [ARCHITECTURE.md](ARCHITECTURE.md)
-- **Auditoria Lighthouse:** [lighthouse/README.md](lighthouse/README.md) e [lighthouse/RESULTS.md](lighthouse/RESULTS.md)
+- **Auditoria Lighthouse:** [lighthouse/README.md](lighthouse/README.md), com resultados da [produção](lighthouse/RESULTS.production.md) e do [build local](lighthouse/RESULTS.local.md)
 
 ## Stack
 
@@ -55,18 +55,20 @@ As variáveis são validadas com zod em `src/env.ts`.
 
 ## Comandos
 
-| Comando                             | O que faz                                                                                       |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `pnpm dev`                          | Desenvolvimento com mocks e Devtools do TanStack                                                |
-| `pnpm build`                        | Verificação de tipos e build de produção                                                        |
-| `pnpm preview`                      | Serve o build de produção                                                                       |
-| `pnpm typecheck`                    | `tsc -b` em app, testes e scripts                                                               |
-| `pnpm lint`                         | oxlint                                                                                          |
-| `pnpm format` / `pnpm format:check` | Prettier                                                                                        |
-| `pnpm test:e2e`                     | Playwright em desktop e mobile; faz o build e sobe o `preview` automaticamente                  |
-| `pnpm test:e2e:update`              | Atualiza as imagens de referência da regressão visual                                           |
-| `pnpm test:e2e:report`              | Abre o relatório HTML do Playwright                                                             |
-| `pnpm lighthouse`                   | Build e auditoria Lighthouse (3 execuções por página e perfil), gerando `lighthouse/RESULTS.md` |
+| Comando                             | O que faz                                                                                                   |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `pnpm dev`                          | Desenvolvimento com mocks e Devtools do TanStack                                                            |
+| `pnpm build`                        | Verificação de tipos e build de produção                                                                    |
+| `pnpm preview`                      | Serve o build de produção                                                                                   |
+| `pnpm typecheck`                    | `tsc -b` em app, testes e scripts                                                                           |
+| `pnpm lint`                         | oxlint                                                                                                      |
+| `pnpm format` / `pnpm format:check` | Prettier                                                                                                    |
+| `pnpm test:e2e`                     | Playwright em desktop e mobile; faz o build e sobe o `preview` automaticamente                              |
+| `pnpm test:e2e:update`              | Atualiza as imagens de referência da regressão visual                                                       |
+| `pnpm test:e2e:report`              | Abre o relatório HTML do Playwright                                                                         |
+| `pnpm test:e2e:production`          | A mesma suíte contra a URL publicada, sem build local                                                       |
+| `pnpm lighthouse`                   | Build e auditoria Lighthouse local (3 execuções por página e perfil), gerando `lighthouse/RESULTS.local.md` |
+| `pnpm lighthouse:production`        | Auditoria Lighthouse da URL publicada, gerando `lighthouse/RESULTS.production.md`                           |
 
 ## Credenciais fictícias
 
@@ -178,6 +180,8 @@ O `vercel.json` configura:
 - cache longo para `/assets`.
 
 O build publicado mantém `VITE_ENABLE_MOCKS=true`, então a demonstração funciona sem backend.
+
+A suíte Playwright também roda contra o deploy (`pnpm test:e2e:production`, ou `E2E_BASE_URL=<url> pnpm test:e2e` para outra URL). Nesse modo não há build nem `preview` locais.
 
 ## Estrutura
 

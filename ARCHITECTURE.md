@@ -299,12 +299,14 @@ A auditoria Lighthouse dá 100 em Accessibility nas quatro combinações.
 
 O detalhe das medições, as causas e as alternativas testadas estão em [lighthouse/README.md](lighthouse/README.md). Em resumo:
 
-- **Desktop:** Performance 98 nas duas páginas.
-- **Mobile:** 72–75, limitado pelo JavaScript da camada de mocks (MSW e dependências: 42% do JS) e pela simulação de CPU 4× e RTT de 150 ms. Na medição real, FCP e LCP acontecem em 0,4–1,0 s.
+- **Metas atingidas** nas quatro combinações, tanto na produção quanto no build local: Performance ≥ 90 e Accessibility, Best Practices e SEO em 100.
+- **O protocolo pesa no mobile.** O Lighthouse simula a rede a partir das requisições observadas. Em HTTP/1.1 (`vite preview` padrão), os ~25 chunks disputam 6 conexões, e a Performance mobile caía para 72–75. Por isso a auditoria local serve o build em HTTPS/HTTP2, como a Vercel.
 
-O que já está aplicado:
+O que está aplicado:
 
 - code splitting por rota;
+- boot shell estático no `index.html` (logo e skeletons), pintado antes do JavaScript enquanto o MSW inicia;
+- resolvedor mínimo de domínio no lugar do `tldts`, a lista de sufixos públicos que o MSW carrega via `tough-cookie` (ver Limitações);
 - imagens WebP com `srcset`, dimensões fixas e `fetchpriority`;
 - fonte variável self-hosted com `font-display: swap`;
 - skeletons com as dimensões finais;
@@ -354,6 +356,7 @@ O Figma original não é editável pelo MCP; a referência usada foi uma cópia 
 - **Simulação no navegador:** não há backend; dados e eventos são simulados no navegador de cada pessoa. Duas pessoas no site publicado não veem as ações uma da outra.
 - **Token no `localStorage`:** com uma API real, a sessão deveria usar cookie `httpOnly`. Aqui o token é exposto a XSS por ser uma simulação.
 - **Carteiras simuladas:** conexão e assinatura não usam Web3. O hash da transação e o link do explorador são fictícios.
-- **Performance mobile** abaixo de 90, pelo custo do MSW no caminho crítico (ver seção 11).
+- **Cookies no MSW:** o `tldts` (lista de sufixos públicos usada pelo `tough-cookie`, dependência do MSW) é substituído por alias no Vite por `src/mocks/public-suffix.ts`. O resolvedor conhece só o sufixo privado `vercel.app` e, nos demais casos, usa os dois últimos rótulos do host. A aplicação não usa cookies, então isso só afetaria cookies de domínio em sufixos compostos como `co.uk`. Com uma API real, o MSW sai do bundle e o alias deixa de existir.
+- **Performance mobile** perto do limite de 90: o boot do MSW continua no caminho crítico (ver seção 11).
 - **Imagens de referência:** a regressão visual foi gerada em Linux; em outro sistema operacional é preciso regenerar.
 - **Rotas privadas:** não há renderização no servidor. As rotas privadas são protegidas no cliente.
