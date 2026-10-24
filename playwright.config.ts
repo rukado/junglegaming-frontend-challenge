@@ -1,7 +1,8 @@
 import { defineConfig, devices } from '@playwright/test'
 
 const port = 4173
-const baseURL = `http://localhost:${port}`
+const remoteURL = process.env.E2E_BASE_URL
+const baseURL = remoteURL ?? `http://localhost:${port}`
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -48,11 +49,13 @@ export default defineConfig({
       },
     },
   ],
-  webServer: {
-    command: `pnpm build && pnpm preview --port ${port} --strictPort`,
-    url: baseURL,
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-    env: { VITE_ENABLE_MOCKS: 'true' },
-  },
+  webServer: remoteURL
+    ? undefined
+    : {
+        command: `pnpm build && pnpm preview --port ${port} --strictPort`,
+        url: baseURL,
+        reuseExistingServer: !process.env.CI,
+        timeout: 120_000,
+        env: { VITE_ENABLE_MOCKS: 'true' },
+      },
 })

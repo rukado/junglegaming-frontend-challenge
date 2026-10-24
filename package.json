@@ -18,6 +18,7 @@
     "test:e2e": "playwright test",
     "test:e2e:update": "playwright test --update-snapshots",
     "test:e2e:report": "playwright show-report",
+    "test:e2e:production": "E2E_BASE_URL=https://junglegaming-frontend-challenge-kohl.vercel.app playwright test",
     "lighthouse": "pnpm build && node lighthouse/run.ts"
   },
   "dependencies": {
